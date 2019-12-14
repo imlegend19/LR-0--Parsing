@@ -318,7 +318,7 @@ if __name__ == '__main__':
     parsing_table = tt.to_string(data=data, header=header, style=tt.styles.ascii_thin_double, padding=(0, 1))
 
     if accepted:
-        string = string[:-2]
+        string = string[:-1]
 
         compressed_name = compress_name(string)
         save_file(parsing_table, num, compressed_name)
