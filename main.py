@@ -212,13 +212,13 @@ if __name__ == '__main__':
 
         except Exception:
             if i != 1:
-                lst = [i] + ['r' + str(i)] * len(term)
+                s = list(c[i][0])
+                s.remove('.')
+                s = "".join(s)
+                lst = [i] + ['r' + str(prod_num[s])] * len(term)
                 lst += [''] * len(non_term)
                 table.append(lst)
                 for j in term:
-                    s = list(c[i][0])
-                    s.remove('.')
-                    s = "".join(s)
                     samp[j] = 'r' + str(prod_num[s])
             else:
                 lst = [i] + [''] * (len(term) + len(non_term))
@@ -315,15 +315,18 @@ if __name__ == '__main__':
             accepted = False
             break
 
-    parsing_table = tt.to_string(data=data, header=header, style=tt.styles.ascii_thin_double, padding=(0, 1))
+    try:
+        parsing_table = tt.to_string(data=data, header=header, style=tt.styles.ascii_thin_double, padding=(0, 1))
 
-    if accepted:
-        string = string[:-1]
+        if accepted:
+            string = string[:-1]
 
-        compressed_name = compress_name(string)
-        save_file(parsing_table, num, compressed_name)
+            compressed_name = compress_name(string)
+            save_file(parsing_table, num, compressed_name)
 
-        print("The string {0} is parsable! Please find the parsing table in "
-              "parsable_strings/{1}/{2}.txt.".format(string, num, compressed_name))
-    else:
-        print("The string {0} is not parsable!".format(string))
+            print("The string {0} is parsable! Please find the parsing table in "
+                  "parsable_strings/{1}/{2}.txt.".format(string, num, compressed_name))
+        else:
+            print("The string {0} is not parsable!".format(string))
+    except Exception:
+        print("Invalid string entered!")
